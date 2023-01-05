@@ -82,7 +82,14 @@ const createDocument = async () => {
 
 // createDocument();
 const getDocument = async () => {
-    const result = await Playlist.find({ctype : "Frontend"})
+    try{
+    //const result = await Playlist.find({ ctype :{$in :["Backend", "Database"]}}).select({_id: 0, name:1})
+    //const result = await Playlist.find({ $or :[{ctype :"Backend"},{author: "Tech"}]})
+    const result = await Playlist.find({ $or :[{ctype :"Backend"},{author: "Tech"}]})
+    .select({name:1})
+    //.count()
+    .sort("name : 1");
     console.log(result);
 }
+catch(err){console.log(err);}}
 getDocument();
