@@ -79,17 +79,45 @@ const createDocument = async () => {
         console.log(err);
     }
 }
-
 // createDocument();
-const getDocument = async () => {
+
+// const getDocument = async () => {
+//     try {
+//         //const result = await Playlist.find({ ctype :{$in :["Backend", "Database"]}}).select({_id: 0, name:1})
+//         //const result = await Playlist.find({ $or :[{ctype :"Backend"},{author: "Tech"}]})
+//         //const result = await Playlist.find({ $or: [{ ctype: "Backend" }, { author: "Tech" }] })
+//             .select({ name: 1 })
+//             //.count()
+//             .sort("name : 1");
+//         console.log(result);
+//     }
+//     catch (err) { console.log(err); }
+// }
+// getDocument();
+
+
+// const updateDocument = async (_id) => {
+//     try {
+//         const result = await Playlist.updateOne({ _id }, {
+//             $set: {
+//                 name: "node js"
+//             }
+           
+//         });
+//         console.log(result); 
+//     } catch (err) { console.log(err); }
+
+// }
+// updateDocument("63b69594405df8292c2c4a3b")
+
+const deleteDocument = async(_id) => {
     try{
-    //const result = await Playlist.find({ ctype :{$in :["Backend", "Database"]}}).select({_id: 0, name:1})
-    //const result = await Playlist.find({ $or :[{ctype :"Backend"},{author: "Tech"}]})
-    const result = await Playlist.find({ $or :[{ctype :"Backend"},{author: "Tech"}]})
-    .select({name:1})
-    //.count()
-    .sort("name : 1");
-    console.log(result);
+        const result= await Playlist.findByIdAndDelete({_id}); 
+        console.log(result);
+
+    }
+    catch(err){
+        console.log(err); 
+    }
 }
-catch(err){console.log(err);}}
-getDocument();
+deleteDocument("63b69594405df8292c2c4a3b");
