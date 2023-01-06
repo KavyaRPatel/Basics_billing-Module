@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
+const validator = require ("validator");
 
 // connection with database. if not present it will create one 
-
-mongoose.connect("mongodb://localhost:27017/project1", { useNewUrlParser: true }, { useUnifiedTopology: true })
+mongoose.set('strictQuery', true);
+mongoose.connect("mongodb://localhost:27017/project1", { useNewUrlParser: true }, { useUnifiedTopology: true }, { useCreateIndex: true })
     .then(() => console.log("Connection successfull."))
     .catch((err) => console.log(err));
 
@@ -11,16 +12,34 @@ const playlistSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        unique: true,
-        lowercase: true,
-        minlength: [2, "Minimum length is 2"]
+        //unique: true,
+        //lowercase: true,
+        //minlength: [2, "Minimum length is 2"]
     },
     ctype: {
         String,
         enum: ["frontend", "backend", "database"]
     },
-    videos: Number,
+    videos: {
+        type: Number,
+        validate(value) {
+            if (value < 0) {
+                throw new Error("Video count cannot be negative");
+            }
+        }
+    },
     author: String,
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        validate(value){
+            if (!validator.isEmail(value)){
+                throw new Error ("Email invalid");
+
+            }
+        }
+    },
     active: Boolean,
     date: {
         type: Date,
@@ -33,10 +52,11 @@ const Playlist = new mongoose.model("Playlist", playlistSchema)
 const createDocument = async () => {
     try {
         const reactPlaylist = new Playlist({
-            name: "React JS",
+            name: "React_JS",
             ctype: "Frontend",
-            videos: 45,
+            videos: 35,
             author: "Tech",
+            email: "tech.go@gmail.com",
             active: true
 
         })
@@ -78,7 +98,7 @@ const createDocument = async () => {
         })
 
 
-        const result = await Playlist.insertMany(JavascriptPlaylist);
+        const result = await Playlist.insertMany(reactPlaylist);
         console.log(result);
     }
     catch (err) {
