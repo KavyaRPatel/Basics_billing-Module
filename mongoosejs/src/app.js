@@ -10,9 +10,15 @@ mongoose.connect("mongodb://localhost:27017/project1", { useNewUrlParser: true }
 const playlistSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true,
+        lowercase: true,
+        minlength: [2, "Minimum length is 2"]
     },
-    ctype: String,
+    ctype: {
+        String,
+        enum: ["frontend", "backend", "database"]
+    },
     videos: Number,
     author: String,
     active: Boolean,
@@ -72,14 +78,14 @@ const createDocument = async () => {
         })
 
 
-        const result = await Playlist.insertMany([JavascriptPlaylist, expressPlaylist, mongoPlaylist]);
+        const result = await Playlist.insertMany(JavascriptPlaylist);
         console.log(result);
     }
     catch (err) {
         console.log(err);
     }
 }
-// createDocument();
+createDocument();
 
 // const getDocument = async () => {
 //     try {
@@ -102,7 +108,7 @@ const createDocument = async () => {
 //             $set: {
 //                 name: "node js"
 //             }
-           
+
 //         });
 //         console.log(result); 
 //     } catch (err) { console.log(err); }
@@ -110,14 +116,14 @@ const createDocument = async () => {
 // }
 // updateDocument("63b69594405df8292c2c4a3b")
 
-const deleteDocument = async(_id) => {
-    try{
-        const result= await Playlist.findByIdAndDelete({_id}); 
+const deleteDocument = async (_id) => {
+    try {
+        const result = await Playlist.findByIdAndDelete({ _id });
         console.log(result);
 
     }
-    catch(err){
-        console.log(err); 
+    catch (err) {
+        console.log(err);
     }
 }
-deleteDocument("63b69594405df8292c2c4a3b");
+//deleteDocument("63b69594405df8292c2c4a3b");
