@@ -1,6 +1,6 @@
 // Callback
 
-const { result } = require("lodash");
+const { result, chunk } = require("lodash");
 const { resolve } = require("path")
 
 // function getMessage(msg,callback) {
@@ -76,17 +76,57 @@ const { resolve } = require("path")
 // })
 
 //making http request
-const http = require("http")
+// const http = require("http")
 
-http.get(`http://api.open-notify.org/astros.json`, resp => {
-    let data = '';
-    resp.on(`data`, chunk => {
-        data += chunk
-    });
+// http.get(`http://api.open-notify.org/astros.json`, resp => {
+//     let data = '';
+//     resp.on(`data`, chunk => {
+//         data += chunk
+//     });
 
 
-    resp.on(`end`, () => {
-        let jsondata = JSON.parse(data)
-        console.log(jsondata)
-    });
-})
+//     resp.on(`end`, () => {
+//         let jsondata = JSON.parse(data)
+//         console.log(jsondata)
+//     });
+// })
+
+//Making http post request
+
+const http = require("https");
+const { default: axios } = require("axios");
+
+const data = JSON.stringify({
+    name: "John Roy",
+    Job: "Author"
+});
+
+// const options = {
+//     hostname: 'reqres.in',
+//     path: '/api/users',
+//     method: 'POST',
+//     header: {
+//         'Content-Type': 'application/json'
+//     }
+// }
+
+// const req = http.request(options,(res)=>{
+//     let body='';
+//     console.log("Status Code:",res.statusCode)
+
+//     res.on(`data`,(chunk)=>{
+//         body+=chunk
+//     })
+
+//     res.on(`end`, ()=>{
+//         console.log("Body", JSON.parse(body));
+//     })
+// })
+// req.write(data)
+// req.end();
+
+//Using Axios
+axios.post('htpps://reqres.in/api/users', data).then(res => {
+    console.log(`StatusCode:${res.status}`)
+    console.log(`Body: ${JSON.stringify(res.data)}`)
+}).catch(err => console.log(err))
