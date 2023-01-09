@@ -101,6 +101,7 @@ const data = JSON.stringify({
     Job: "Author"
 });
 
+//making post request
 // const options = {
 //     hostname: 'reqres.in',
 //     path: '/api/users',
