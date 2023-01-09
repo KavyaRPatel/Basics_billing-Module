@@ -16,22 +16,44 @@ const { resolve } = require("path")
 
 // getMessage("Get Message", displayMessage)
 
-// Promises
 
-let promise = new Promise(function (resolve, reject) {
-    setTimeout(() => resolve("Run Before"), 1000)
-});
+// // Promises
+// let promise = new Promise(function (resolve, reject) {
+//     setTimeout(() => resolve("Run Before"), 1000)
+// });
 
-promise.then
-    (result => {
-        console.log(result)
-        GetAfter()
-    },
-        error => console.log(error)
+// promise.then
+//     (result => {
+//         console.log(result)
+//         GetAfter()
+//     },
+//         error => console.log(error)
+//     )
+
+
+
+// function GetAfter() {
+//     console.log("After");
+// }
+
+//async await
+function Clown() {
+    return new Promise(resolve => {
+        setTimeout(()=> 
+            {resolve("Clown")
+            },2000)
+        }
     )
+}
 
+async function msg(){
+    const mssg = await Clown()
+    console.log("Message:", mssg)
+    getResult()
+}
 
+msg()
 
-function GetAfter() {
-    console.log("After");
+function getResult(){
+    console.log("Execute After")
 }
