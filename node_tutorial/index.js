@@ -37,23 +37,56 @@ const { resolve } = require("path")
 // }
 
 //async await
-function Clown() {
-    return new Promise(resolve => {
-        setTimeout(()=> 
-            {resolve("Clown")
-            },2000)
-        }
-    )
-}
+// function Clown() {
+//     return new Promise(resolve => {
+//         setTimeout(()=> 
+//             {resolve("Clown")
+//             },2000)
+//         }
+//     )
+// }
 
-async function msg(){
-    const mssg = await Clown()
-    console.log("Message:", mssg)
-    getResult()
-}
+// async function msg(){
+//     const mssg = await Clown()
+//     console.log("Message:", mssg)
+//     getResult()
+// }
 
-msg()
+// msg()
 
-function getResult(){
-    console.log("Execute After")
-}
+// function getResult(){
+//     console.log("Execute After")
+// }
+
+// http server 
+// const http = require("http")
+
+// const hostname = '127.0.0.1'
+// const port = 3000;
+
+// const server = http.createServer((req, res) => {
+//     res.writeHead = (200, { 'Content-Type': 'text/plain' })  //1 statement instead of 2
+//     // res.statusCode=200;
+//     // res.setHeader=('Content-Type','text/plain');
+//     res.end("Welcome to HTTP server")
+// })
+
+// server.listen(port, hostname, () => {
+//     console.log(`Server Running on http://${hostname}:${port}/`);
+// })
+
+//making http request
+const http = require("http")
+
+http.get(`http://api.open-notify.org/astros.json`, resp => {
+    let data = '';
+    resp.on(`data`, chunk => {
+        data += chunk
+    });
+
+
+    resp.on(`end`, () => {
+        let jsondata = JSON.parse(data)
+        console.log(jsondata)
+    });
+})
