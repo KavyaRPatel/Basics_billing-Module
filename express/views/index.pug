@@ -1,6 +1,17 @@
 doctype html 
 html 
-    title Express view Engine 
+    title #{title} 
+    <link rel="stylesheet" href="https://www.w3schools.com/html/styles.css">
+
+
     body 
-    h1 Express Application 
-    p Express Templete Engine 
+        div.text-center
+            h1.h1.py-4 Simple Form 
+        div.container.text-center.w-25
+            form(method= 'POST' action="/form_submit")
+                div.from-group 
+                    input(type='text' name='username' class='form-control' value='' placeholder='Username')  
+                div.from-group 
+                    input(type='text' name='email' class='form-control' value='' placeholder='Email') 
+                div.from-group 
+                    input(type='submit' class='btn btn-primary' value='Submit')  
