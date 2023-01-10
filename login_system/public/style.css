@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-image: url('/assets/bg_images.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.center-div {
+    padding-top: 10%;
+}
+
+.btn.btn-success {
+    padding: .4em 2em;
+}
+
+form {
+    padding: 0 2em;
+}
+
+#login.title>span {
+    font-size: .8em;
+}
