@@ -19,6 +19,6 @@ form {
     padding: 0 2em;
 }
 
-#login.title>span {
-    font-size: .8em;
+.font-size {
+    font-size: 13px !important;
 }
