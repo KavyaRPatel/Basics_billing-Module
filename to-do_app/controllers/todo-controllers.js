@@ -15,7 +15,7 @@ module.exports = function (app) {
         const obj = JSON.parse(JSON.stringify(req.body)); // req.body = [Object: null prototype] { title: 'product' }
 
         data.push(req.body);
-        res.json(data);
+        //res.json(data);
         console.log(data)
     })
 

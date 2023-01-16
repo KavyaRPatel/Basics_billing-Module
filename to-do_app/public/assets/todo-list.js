@@ -10,8 +10,10 @@ $(document).ready(function(){
           contentType: "application/json; charset=utf-8",
           url: '/todo',
           data: todo,
-          complete: function(data){
+          success: function(data){
             console.log('here')
+            // test();
+            
             // alert(data);
             //do something with the data via front-end framework
             // location.reload(); 
@@ -19,12 +21,11 @@ $(document).ready(function(){
           error: function(err) {
             console.log(err)
           }
-        }).done(() => {console.log('tets')})
-  
+        })
         return false;
   
     });
-  
+
     // $('li').on('click', function(){
     //     var item = $(this).text().replace(/ /g, "-");
     //     $.ajax({
@@ -38,3 +39,10 @@ $(document).ready(function(){
     // });
   
   });
+
+
+  function abc(){
+    console.log('here');
+  }
+
+module.exports();
