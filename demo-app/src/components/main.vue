@@ -1,12 +1,12 @@
 <template>
     <div id="details">
         <ul>
-            <li v-for="detail in details" :key="detail" details.sync="detail" v-on:click="detail.show = !detail.show">
+            <li v-for="detail in details" :key="detail.name" v-on:click="detail.show = !detail.show">
                 <h2>{{ detail.name }}</h2>
                 <h3 v-show="detail.show">{{ detail.speciality }}</h3>
             </li>
         </ul>
-        <button v-on:click="deleteDetail">Delete</button>
+        <!-- <button v-on:click="deleteDetail">Delete</button>  -->
     </div>
 </template>
 
@@ -14,26 +14,19 @@
 
 export default {
     props: {
-        
-    },
+        details:{
+            type: Array,
+            required: true
+        }    },
+
     data() {
         return {
-            details: [
-                { name: "Parth", speciality: "Java", show: false },
-                { name: "Hiral", speciality: "Node", show: false },
-                { name: "Pratik", speciality: "Django", show: false },
-                { name: "Raavi", speciality: "VueJs", show: false },
-                { name: "Rohan", speciality: "MongoDB   ", show: false },
 
-            ]
         }
-    },
-    methods: {
-        deleteDetail: function () {
-            this.details.pop();
-        },
-    },
-};
+    }
+  //  methods: {}
+
+}
 
 </script>
 
