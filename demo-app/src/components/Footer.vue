@@ -16,13 +16,13 @@ export default {
   data() {
     return {
       newTitle: this.title,
-     title_:""
+      title_:""
     }
   },
   created(){
     bus.$on('titleChanged',(data)=>{
       this.newTitle = data;
-      title_ = this.newTitle;
+      this.title_ = this.newTitle;
     })
   }
 }

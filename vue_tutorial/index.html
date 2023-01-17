@@ -2,11 +2,16 @@
 <html lang="en">
 <head>
     <title>Vue JS Tutorial</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com.vue"></script>
 
 </head>
 <body>
-    <h1>Hello</h1>
+<div id="vue-app">
+    <h1>{{greet()}}</h1>
+    <p>Name: {{name}}</p>
+    <p>Job: {{job}}</p>
+</div>
     <script src="./app.js"></script>
 </body>
 </html>

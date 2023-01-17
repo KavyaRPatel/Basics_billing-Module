@@ -1,6 +1,6 @@
 <template>
   <header>
-    <h1 v-on:click="changeTitle">{{ title1 }}</h1>
+    <h1 v-on:click="changeTitle">{{ title }}</h1>
   </header>
 
 </template>
