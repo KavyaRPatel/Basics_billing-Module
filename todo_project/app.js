@@ -1,30 +1,33 @@
-var express=require("express");
-var app= express();
-const pool = require("./db")
+var express = require("express");
+var app = express();
+const bodyparser = require("body-parser");
 
+const pool = require("./db")
+app.use(bodyparser.json())
+
+app.use(bodyparser.urlencoded({ extended: true }));
 
 app.use(express.json())
-app.get('/', async (req, res) => {
-    try {
-        const allTodos = await pool.query("SELECT * FROM todo")
-        res.json(allTodos.rows)
-    } catch (err) {
-        console.log(err.message);
+app.use(function (req, res, next) {
 
-    }
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    next();
+})
+const todos = []
+app.get('/', (req, res) => {
+    res.json(todos)
 })
 
-app.post('/', async (req, res) => {
-    try {
-        const { description } = req.body;
-        const new_todo = await pool.query("INSERT INTO todo(description) VALUES ($1) RETURNING *", [description])
-        res.json(new_todo)
-    } catch (err) {
-        console.log(err.message);
-    }
+app.post('/', (req, res) => {
+
+    const todo = req.body.todos;
+    todos.push(todo);
+    res.json("task added")
 })
 
 
-app.listen(3000, () => {
-    console.log("Server is listening to http://localhost:3000");
+app.listen(4000, () => {
+    console.log("Server is listening to http://localhost:4000");
 })

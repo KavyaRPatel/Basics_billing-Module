@@ -16,8 +16,8 @@
         </tr>
       </tbody>
     </table>
-    
-</div>
+
+  </div>
 
 
 </template>
@@ -26,12 +26,18 @@
 
 
 export default {
+  props: {
+    todos: {
+      type: Array,
+      }
+  },
+
   data() {
     return {
-      todos: [
-        { id: 1, name: 'Kavya', task: 'Make a todo app' },
-        { id: 2, name: 'Ravi', task: 'Complete node tutorial' }
-      ]
+      // todos: [
+      //   { id: 1, name: 'Kavya', task: 'Make a todo app' },
+      //   { id: 2, name: 'Ravi', task: 'Complete node tutorial' }
+      // ]
     }
   }
 }

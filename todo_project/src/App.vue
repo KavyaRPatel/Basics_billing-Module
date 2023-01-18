@@ -1,9 +1,9 @@
 <template>
   <div>
-    <app-header v-bind:title="title"></app-header>
+    <app-header></app-header>
     <button v-on:click="isFormVisible = !isFormVisible">Add Task</button>
-    <app-main v-bind:todo="todos"></app-main>
-    <app-form v-if="isFormVisible"></app-form>
+    <app-main v-bind:todos="todos" ></app-main>
+    <app-form v-if="isFormVisible" v-on:addTask="updateTask($event)"></app-form>
 
 
   </div>
@@ -11,10 +11,11 @@
 </template>
 
 <script>
+//import { response } from 'express';
 import header from './components/Header.vue';
-import main from './components/main.vue';
+import main  from './components/main.vue';
 import ToDoForm from "./components/newTaskForm.vue";
-
+import { addTask, /*display */} from "../services";
 export default {
   components: {
     'app-header': header,
@@ -25,20 +26,40 @@ export default {
   data() {
     return {
       todos: [
-        { id: 1, name: 'Kavya', task: 'Make a todo app' },
-        { id: 2, name: 'Ravi', task: 'Complete node tutorial' }
-      ],
-      isFormVisible: false
+          { id: 1, name: 'Kavya', task: 'Make a todo app' },
+          { id: 2, name: 'Ravi', task: 'Complete node tutorial' }
+         ],
+        isFormVisible: false
     }
-  }
+  },
+  methods: {
+    updateTask(data) {
+      console.log('data::', data);
+      addTask(data).then(response => {
+        console.log("Heree");
+        console.log(response);
+        //this.display();
+      })
+    },
+    // display() {
+    //   display().then(response => {
+    //     console.log(response);
+    //     this.todo = response;
 
-
+    //   }
+    //   )
+    // }
+  },
+  
 }
+
+
+
 </script>
 
 <style>
-button{
+button {
   margin-top: 10px;
-  
+
 }
 </style>
