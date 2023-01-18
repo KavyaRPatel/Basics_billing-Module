@@ -1,8 +1,8 @@
 <template>
   <div>
     <app-header v-bind:title="title"></app-header>
-    <app-main v-bind:todo="todos"></app-main>
     <button v-on:click="isFormVisible = !isFormVisible">Add Task</button>
+    <app-main v-bind:todo="todos"></app-main>
     <app-form v-if="isFormVisible"></app-form>
 
 
@@ -37,5 +37,8 @@ export default {
 </script>
 
 <style>
-
+button{
+  margin-top: 10px;
+  
+}
 </style>
