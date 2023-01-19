@@ -41,7 +41,10 @@ export default {
             this.name = '';
             this.task = '';
         },
+        displayTodos() {
+            this.$emit('displayTodos')
 
+        }
 
     }
 

@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-export async function display() {
+export async function displayTodos() {
 
     const response = await axios.get('/');
     return response.data;
