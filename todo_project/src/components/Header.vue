@@ -23,7 +23,7 @@ export default {
 
 <style scoped>
 header {
-  background-color: rgba(0, 0, 0, 0.747);
+  background-color: rgba(174, 129, 233, 0.747);
   padding: 10px;
 }
 
@@ -36,7 +36,7 @@ button {
 }
 
 h1 {
-  color: #ddd;
+  color: rgb(0, 0, 0);
   text-align: center;
 }
 </style>
