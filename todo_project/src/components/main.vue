@@ -15,7 +15,8 @@
           <td>{{ todo.todo_id }}</td>
           <td>{{ todo.name }}</td>
           <td>{{ todo.task }}</td>
-          <td> <button class="Delete" v-on:click="del(todo.todo_id)">Delete</button> <button class="Edit" v-on:click="edit(todo.todo_id)">Edit</button>
+          <td> <button class="btn btn-danger" v-on:click="del(todo.todo_id)">Delete</button> <button
+              class="btn btn-primary" v-on:click="edit(todo.todo_id)">Edit</button>
           </td>
           <h4></h4>
         </tr>
@@ -29,7 +30,7 @@
 
 <script>
 
-import { displayTask, deleteTask, updateTask} from "../../services";
+import { displayTask, deleteTask, updateTask } from "../../services";
 
 export default {
   props: {
@@ -41,7 +42,8 @@ export default {
 
   data() {
     return {
-      list: []
+      list: [],
+
 
     }
   },
@@ -65,6 +67,7 @@ export default {
     edit(id) {
       updateTask(id).then(() => {
         this.$emit('edit', id)
+
 
       })
 
@@ -93,37 +96,27 @@ export default {
 table {
   width: 80%;
   border-collapse: separate;
-
+  margin-top: 10px;
+  margin-left: 10%;
+  margin-right: 10%;
+  text-align: center;
 }
 
 th,
 td {
   padding: 10px;
   text-align: center;
-  border-color: rgb(12, 12, 12);
-  border-bottom: 1px solid rgb(12, 12, 12);
+  border-color: rgb(125, 192, 231);
+  border-bottom: 1px solid rgb(56, 132, 202);
 
 }
 
 th {
-  background-color: #ddc3ee;
+  background-color: #69a1eb;
   font-weight: bold;
-  border-color: black;
+  border-color: rgb(56, 132, 202);
 }
 
-.Delete {
-  background-color: rgb(241, 114, 114);
-  font-weight: bold;
-  align-items: right;
-  justify-content: center;
-  widows: 50%;
-}
 
-.Edit {
-  background-color: rgb(108, 183, 245);
-  font-weight: bold;
-  align-items: center;
-  justify-content: center;
-  widows: 50%;
-}
+
 </style>

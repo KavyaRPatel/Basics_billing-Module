@@ -2,13 +2,10 @@
     <div>
         <form>
 
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" placeholder="Name" v-model="name" />
-
             <label for="task">Task:</label>
 
             <input type="text" id="task" name="task" placeholder="Task" v-model="task" />
-            <button class="btn btn-info" v-on:click="addTask">Add</button>
+            <button v-on:click="editTask">Edit</button>
 
         </form>
 
@@ -28,21 +25,18 @@ export default {
         }
     },
     methods: {
-        addTask() {
-            console.log(this.name);
+        editTask() {
             const payload = {
                 id: this.id,
-                name: this.name,
                 task: this.task,
 
             }
             // console.log(this.name, this.task);
 
-            this.$emit('addTask', payload)
+            this.$emit('editTask', payload)
             this.clearForm();
         },
         clearForm() {
-            this.name = '';
             this.task = '';
         },
         
@@ -71,13 +65,12 @@ form
 
 }
 
-button {
+/* button {
     margin-top: 10px;
-    margin-bottom: 10p;
     display: flex;
     align-items: center;
     width: 10%;
     flex-direction: column;
     text-align: center;
-} 
+} */
 </style>

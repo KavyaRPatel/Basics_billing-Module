@@ -23,20 +23,19 @@ export default {
 
 <style scoped>
 header {
-  background-color: rgba(174, 129, 233, 0.747);
+  margin-top: 1%;
+  background-color: rgba(130, 175, 235, 0.747);
   padding: 10px;
-}
-
-button {
-  background-color: white;
-  border-radius: 10%;
-  align-items: flex-end;
-  color: #000;
+  margin-left: 10px;
+  margin-right: 10px;
 
 }
+
 
 h1 {
-  color: rgb(0, 0, 0);
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: rgb(29, 44, 177);
   text-align: center;
 }
 </style>

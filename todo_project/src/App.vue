@@ -1,7 +1,7 @@
 <template>
   <div>
     <app-header></app-header>
-    <button v-on:click="isFormVisible = !isFormVisible">Add Task</button>
+    <button class="btn btn-dark" v-on:click="isFormVisible = !isFormVisible">Add Task</button>
     <app-form v-if="isFormVisible" v-on:addTask="updateTask($event)"></app-form>
 
     <app-main v-bind:todos="todos" v-on:del="deleteTask($event)" v-on:edit="editTask($event)"></app-main>
@@ -68,8 +68,10 @@ export default {
 </script>
 
 <style>
-button {
-  margin-top: 10px;
+.btn-dark{
+  margin-left: 10%;
+  margin-top:1%;
+  width:10%;
 
 }
 </style>
