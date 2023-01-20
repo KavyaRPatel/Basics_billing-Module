@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form >
+        <form>
 
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" placeholder="Name" v-model="name" />
@@ -8,7 +8,7 @@
             <label for="task">Task:</label>
 
             <input type="text" id="task" name="task" placeholder="Task" v-model="task" />
-            <button v-on:click="addTask()">Add</button>
+            <button v-on:click="addTask">Add</button>
 
         </form>
 
@@ -46,9 +46,9 @@ export default {
             this.task = '';
         },
         
-        displayTask(){
-            this.$emit('displayTask')
-        },
+        // displayTask(){
+        //     this.$emit('displayTask')
+        // },
     
     
     },

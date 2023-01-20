@@ -1,5 +1,7 @@
 var express = require("express");
 var app = express();
+const cors = require('cors');
+
 const bodyparser = require("body-parser");
 
 const pool = require("./db")
@@ -7,6 +9,12 @@ app.use(bodyparser.json())
 
 app.use(bodyparser.urlencoded({ extended: true }));
 //app.use(express.static(process.cwd()+ "/src/compoments"));
+const corsOptions ={
+    origin:'http://localhost:8080', 
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200
+}
+app.use(cors(corsOptions));
 
 app.use(express.json())
 app.use(function (req, res, next) {
@@ -14,6 +22,8 @@ app.use(function (req, res, next) {
     // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
     next();
 })
 const todos = []
@@ -35,9 +45,11 @@ app.post('/', async (req, res) => {
 })
 
 app.delete('/:id', async(req,res)=>{
-    const {id}=req.params;
+    console.log("here");
     try {
-        const deleteTodo= await pool.query("DELETE FROM todo WHERE todo_id=$1", [id]);
+        const deleteTodo= await pool.query("DELETE FROM todo WHERE todo_id=$1",
+        [req.params.id]);
+
         res.json("Todo was deleted")
     } catch (error) {console.log(err.message);
         
@@ -55,6 +67,17 @@ app.get('/', async (req, res) => {
 
     }
 
+})
+
+app.put("/:id", async (req, res) => {
+    const { id } = req.params;
+    const {description}=req.body; 
+    try {
+        const updateTodo = await pool.query("UPDATE todo SET description = $1 WHERE todo_id=$2 ", [description,id])
+        res.json("Todo was updated")
+    } catch (err) {
+        console.log(err.message);
+    }
 })
 
 

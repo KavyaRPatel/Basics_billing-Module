@@ -2,9 +2,9 @@
   <div>
     <app-header></app-header>
     <button v-on:click="isFormVisible = !isFormVisible">Add Task</button>
-    <app-form v-if="isFormVisible" v-on:addTask="updateTask($event)" ></app-form>
+    <app-form v-if="isFormVisible" v-on:addTask="updateTask($event)"></app-form>
 
-    <app-main v-bind:todos="todos"></app-main>
+    <app-main v-bind:todos="todos" v-on:del="deleteTask($event)" v-on:edit="editTask($event)"></app-main>
     <div class="row mrgnbtm">
       <Tasks v-if="todos.length > 0" :todos="todos" />
     </div>
@@ -18,7 +18,7 @@
 import header from './components/Header.vue';
 import main from './components/main.vue';
 import ToDoForm from "./components/newTaskForm.vue";
-import { addTask } from "../services";
+import { addTask, displayTask } from "../services";
 export default {
   components: {
     'app-header': header,
@@ -42,9 +42,25 @@ export default {
         this.todos.push(data);
 
       })
-    }
+    },
+    deleteTask(id) {
 
+      this.todos = this.todos.filter(item => item.todo_id !== id)
+
+    },
+
+
+  
+  },
+  created() {
+    //this.displayTask();
+    displayTask().then((response) => {
+
+      this.list = response;
+
+    })
   }
+  
 
 }
 
