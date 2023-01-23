@@ -18,7 +18,6 @@ console.log(id,"id");
 
 export async function updateTodo(data) {
     const id = data.id
-    console.log(data);
     const response = await axios.patch('http://localhost:4000/'+id, {task:data});
     return response.data;
     }

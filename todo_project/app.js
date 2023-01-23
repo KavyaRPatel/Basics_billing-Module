@@ -72,8 +72,6 @@ app.get('/', async (req, res) => {
 app.patch("/:id", async (req, res) => {
     try {
         const task = req.body.task.task;
-        console.log(req.params.id);
-        console.log("Here");
         const updateTodo = await pool.query("UPDATE todo SET task = $1 WHERE todo_id=$2 ", [task, req.params.id])
         res.json("Todo was updated")
     } catch (err) {

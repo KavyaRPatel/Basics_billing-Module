@@ -16,11 +16,12 @@
           <td>{{ todo.name }}</td>
           <td>{{ todo.task }}</td>
           <td> <button class="btn btn-danger" v-on:click="del(todo.todo_id)">Delete</button>
-            <!-- <button class="btn btn-primary" v-on:click=" flag =! flag; edit(todo.todo_id)">Edit</button> -->
+            <button class="btn btn-primary" data-toggle="modal"  v-on:click="editId = todo.todo_id">Edit</button>
           </td>
         </tr>
       </tbody>
     </table>
+    <app-edit v-if="editId" @close="editId=null" v-on:edit="editTask($event)"></app-edit>
 
   </div>
 
@@ -28,10 +29,15 @@
 </template>
 
 <script>
+import editTaskForm from "./editTask.vue";
 
 import { displayTask, deleteTask } from "../../services";
-
 export default {
+  components: {
+
+    'app-edit': editTaskForm,
+
+  },
   props: {
     todos: {
       type: Array,
@@ -41,11 +47,14 @@ export default {
 
   data() {
     return {
+      editId: '',
       list: [],
-      
-
-
+      flag: false,
     }
+
+
+
+
   },
   methods: {
 
@@ -54,7 +63,6 @@ export default {
         this.$emit('del', id)
 
       })
-
       displayTask().then((response) => {
 
         this.list = response;
@@ -64,11 +72,7 @@ export default {
       console.log(id);
 
     },
-    // edit(id) {
-    //   eventBus.$emit('edit', id);
-    //   console.log(id, "id");
-    //   console.log(this.flag, "flag")
-    // }
+
   },
 
   created() {
@@ -105,7 +109,8 @@ th {
   font-weight: bold;
   border-color: rgb(56, 132, 202);
 }
-button{
+
+button {
   margin-left: 10px;
 }
 </style>
