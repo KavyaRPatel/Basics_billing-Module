@@ -16,9 +16,10 @@ console.log(id,"id");
     return response.data;
 }
 
-export async function updateTask(id) {
-    console.log(id,"id");
-        const response = await axios.put('http://localhost:4000/'+id);
-        return response.data;
+export async function updateTodo(data) {
+    const id = data.id
+    console.log(data);
+    const response = await axios.patch('http://localhost:4000/'+id, {task:data});
+    return response.data;
     }
     

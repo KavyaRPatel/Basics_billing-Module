@@ -8,11 +8,10 @@ const pool = require("./db")
 app.use(bodyparser.json())
 
 app.use(bodyparser.urlencoded({ extended: true }));
-//app.use(express.static(process.cwd()+ "/src/compoments"));
-const corsOptions ={
-    origin:'http://localhost:8080', 
-    credentials:true,            //access-control-allow-credentials:true
-    optionSuccessStatus:200
+const corsOptions = {
+    origin: 'http://localhost:8080',
+    credentials: true,            //access-control-allow-credentials:true
+    optionSuccessStatus: 200
 }
 app.use(cors(corsOptions));
 
@@ -32,27 +31,28 @@ app.post('/', async (req, res) => {
     try {
         const name = req.body.task.name;
         const { task } = req.body.task;
-        const new_todo = await pool.query("INSERT INTO todo (name, task) VALUES ($1,$2) RETURNING *", [name,task])
+        const new_todo = await pool.query("INSERT INTO todo (name, task) VALUES ($1,$2) RETURNING *", [name, task])
         res.json(new_todo)
         // res.json("Hellooo")
     } catch (err) {
         console.log(err.message);
     }
     res.json("task added")
-    
+
     //const todo = req.body.todo;
     //todo.push(todo);
 })
 
-app.delete('/:id', async(req,res)=>{
+app.delete('/:id', async (req, res) => {
     console.log("here");
     try {
-        const deleteTodo= await pool.query("DELETE FROM todo WHERE todo_id=$1",
-        [req.params.id]);
+        const deleteTodo = await pool.query("DELETE FROM todo WHERE todo_id=$1",
+            [req.params.id]);
 
         res.json("Todo was deleted")
-    } catch (error) {console.log(err.message);
-        
+    } catch (error) {
+        console.log(err.message);
+
     }
 })
 
@@ -69,11 +69,12 @@ app.get('/', async (req, res) => {
 
 })
 
-app.put("/:id", async (req, res) => {
-    const { id } = req.params;
-    const {description}=req.body; 
+app.patch("/:id", async (req, res) => {
     try {
-        const updateTodo = await pool.query("UPDATE todo SET description = $1 WHERE todo_id=$2 ", [description,id])
+        const task = req.body.task.task;
+        console.log(req.params.id);
+        console.log("Here");
+        const updateTodo = await pool.query("UPDATE todo SET task = $1 WHERE todo_id=$2 ", [task, req.params.id])
         res.json("Todo was updated")
     } catch (err) {
         console.log(err.message);

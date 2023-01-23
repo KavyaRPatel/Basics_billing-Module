@@ -1,11 +1,13 @@
 <template>
     <div>
         <form>
+            <label for="id">Id:</label>
 
+            <input type="text" id="id" name="id" placeholder="Id" v-model="id" />
             <label for="task">Task:</label>
 
             <input type="text" id="task" name="task" placeholder="Task" v-model="task" />
-            <button v-on:click="editTask">Edit</button>
+            <button class="btn btn-info" v-on:click="editTask">Edit</button>
 
         </form>
 
@@ -26,34 +28,35 @@ export default {
     },
     methods: {
         editTask() {
+            console.log("Edit task");
             const payload = {
                 id: this.id,
-                task: this.task,
-
+                task: this.task
             }
-            // console.log(this.name, this.task);
+            console.log(this.id, "id in created");
 
             this.$emit('editTask', payload)
-            this.clearForm();
+            //this.clearForm();
         },
-        clearForm() {
-            this.task = '';
-        },
-        
-        // displayTask(){
-        //     this.$emit('displayTask')
+        // clearForm() {
+        //     this.name = '';
+        //     this.task = '';
         // },
-    
-    
-    },
-    
+
+
+
+    }
 }
+
+     
+    
+
+
 
 </script>
 
 <style scoped>
-form
- {
+form {
     margin-top: 10px;
     display: flex;
     flex-direction: column;

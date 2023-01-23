@@ -15,10 +15,9 @@
           <td>{{ todo.todo_id }}</td>
           <td>{{ todo.name }}</td>
           <td>{{ todo.task }}</td>
-          <td> <button class="btn btn-danger" v-on:click="del(todo.todo_id)">Delete</button> <button
-              class="btn btn-primary" v-on:click="edit(todo.todo_id)">Edit</button>
+          <td> <button class="btn btn-danger" v-on:click="del(todo.todo_id)">Delete</button>
+            <!-- <button class="btn btn-primary" v-on:click=" flag =! flag; edit(todo.todo_id)">Edit</button> -->
           </td>
-          <h4></h4>
         </tr>
       </tbody>
     </table>
@@ -30,7 +29,7 @@
 
 <script>
 
-import { displayTask, deleteTask, updateTask } from "../../services";
+import { displayTask, deleteTask } from "../../services";
 
 export default {
   props: {
@@ -43,6 +42,7 @@ export default {
   data() {
     return {
       list: [],
+      
 
 
     }
@@ -64,22 +64,11 @@ export default {
       console.log(id);
 
     },
-    edit(id) {
-      updateTask(id).then(() => {
-        this.$emit('edit', id)
-
-
-      })
-
-      displayTask().then((response) => {
-
-        this.list = response;
-
-      })
-
-      console.log(id);
-
-    }
+    // edit(id) {
+    //   eventBus.$emit('edit', id);
+    //   console.log(id, "id");
+    //   console.log(this.flag, "flag")
+    // }
   },
 
   created() {
@@ -116,7 +105,7 @@ th {
   font-weight: bold;
   border-color: rgb(56, 132, 202);
 }
-
-
-
+button{
+  margin-left: 10px;
+}
 </style>
