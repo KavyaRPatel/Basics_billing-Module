@@ -1,6 +1,8 @@
 
 <template>
   <div id="todos">
+    <app-edit v-bind:editId="editId" v-if="editId" v-on:editTask="editTask($event)"></app-edit>
+
     <table>
       <thead>
         <tr>
@@ -16,12 +18,11 @@
           <td>{{ todo.name }}</td>
           <td>{{ todo.task }}</td>
           <td> <button class="btn btn-danger" v-on:click="del(todo.todo_id)">Delete</button>
-            <button class="btn btn-primary" data-toggle="modal"  v-on:click="editId = todo.todo_id">Edit</button>
+            <button class="btn btn-primary" v-on:click="editId = todo.todo_id">Edit</button>
           </td>
         </tr>
       </tbody>
     </table>
-    <app-edit v-if="editId" @close="editId=null" v-on:edit="editTask($event)"></app-edit>
 
   </div>
 
@@ -31,7 +32,7 @@
 <script>
 import editTaskForm from "./editTask.vue";
 
-import { displayTask, deleteTask } from "../../services";
+import { displayTask, deleteTask, updateTodo } from "../../services";
 export default {
   components: {
 
@@ -49,11 +50,7 @@ export default {
     return {
       editId: '',
       list: [],
-      flag: false,
     }
-
-
-
 
   },
   methods: {
@@ -72,7 +69,14 @@ export default {
       console.log(id);
 
     },
+    editTask(data) {
 
+      console.log('data::', data);
+      updateTodo(data).then(() => {
+        //this.todos.push(data);
+
+      })
+    },
   },
 
   created() {

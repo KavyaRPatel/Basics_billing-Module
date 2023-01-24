@@ -9,7 +9,7 @@ app.use(bodyparser.json())
 
 app.use(bodyparser.urlencoded({ extended: true }));
 const corsOptions = {
-    origin: 'http://localhost:8080',
+    origin: 'http://localhost:8081',
     credentials: true,            //access-control-allow-credentials:true
     optionSuccessStatus: 200
 }
@@ -60,7 +60,7 @@ app.delete('/:id', async (req, res) => {
 
 app.get('/', async (req, res) => {
     try {
-        const allTodos = await pool.query("SELECT * FROM todo")
+        const allTodos = await pool.query("SELECT * FROM todo ORDER BY todo_id DESC")
         res.json(allTodos.rows)
     } catch (err) {
         console.log(err.message);

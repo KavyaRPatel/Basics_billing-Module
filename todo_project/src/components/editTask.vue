@@ -1,15 +1,14 @@
 <template>
     <div>
-        
-        <form v-on:submit.prevent>
+
+        <form>
 
             <label for="task">Task:</label>
 
             <input type="text" id="task" name="task" placeholder="Task" v-model="task" />
             <button class="btn btn-info" v-on:click="editTask">Edit</button>
 
-        </form> 
-
+        </form>
     </div>
 </template>
 
@@ -18,8 +17,8 @@
 
 //import { eventBus } from "../main"
 export default {
-    props:{
-        editId:{
+    props: {
+        editId: {
             type: Number
         }
     },
@@ -28,24 +27,24 @@ export default {
             id: '',
             name: '',
             task: ''
-        }
-    },
+    }},
     methods: {
         editTask() {
             console.log("Edit task");
-            // const payload = {
-            //     id: this.id,
-            //     task: this.task
-            // }
+            const payload = {
+                id: this.editId,
+                task: this.task
+            }
 
-            //console.log(id, "id in created");
-            //this.$emit('editTask', payload)
-            //this.clearForm();
+            console.log(this.editId, "id in created");
+            console.log(this.task, "task");
+            this.$emit('editTask', payload)
+            this.clearForm();
         },
-        // clearForm() {
-        //     this.name = '';
-        //     this.task = '';
-        // },
+        clearForm() {
+            this.task = '';
+            this.id=''
+        },
 
 
 
