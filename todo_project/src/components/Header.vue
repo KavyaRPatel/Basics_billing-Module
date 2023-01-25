@@ -35,7 +35,7 @@ header {
 h1 {
   margin-top: 10px;
   margin-bottom: 10px;
-  color: rgb(29, 44, 177);
+  color: rgb(7, 7, 7);  
   text-align: center;
 }
 </style>

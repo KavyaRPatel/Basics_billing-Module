@@ -1,13 +1,11 @@
 <template>
     <div>
 
-        <form>
+        <form class="form-rounded">
+                <label for="task">Task:</label>
 
-            <label for="task">Task:</label>
-
-            <input type="text" id="task" name="task" placeholder="Task" v-model="task" />
-            <button class="btn btn-info" v-on:click="editTask">Edit</button>
-
+                <input type="text" id="task" name="task" placeholder="Task" v-model="task" />
+                <button class="btn btn-info" v-on:click="editTask">Edit</button>
         </form>
     </div>
 </template>
@@ -27,7 +25,8 @@ export default {
             id: '',
             name: '',
             task: ''
-    }},
+        }
+    },
     methods: {
         editTask() {
             console.log("Edit task");
@@ -43,7 +42,7 @@ export default {
         },
         clearForm() {
             this.task = '';
-            this.id=''
+            this.id = ''
         },
 
 
@@ -65,7 +64,7 @@ export default {
 
 <style scoped>
 form {
-    margin-top: 10px;
+    margin-top: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -73,11 +72,17 @@ form {
     width: 50%;
     height: 50%;
     background: #fff;
-
+    margin-left: 20%;
 }
-
+.form-rounded{
+    border-radius: 1px;
+    border: 1px solid rgb(0, 0, 0);
+    width: 27%
+    
+}
 button {
-    width: 10%;
-
+    margin-top: 10px;
+    width: 40%;
+margin-bottom: 10px;
 }
 </style>

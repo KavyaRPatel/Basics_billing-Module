@@ -1,20 +1,27 @@
 var express = require("express");
 var app = express();
 const cors = require('cors');
-
-const bodyparser = require("body-parser");
-
 const pool = require("./db")
-app.use(bodyparser.json())
+const bodyparser = require("body-parser");
+const session= require("express-session");
+const {v4: uuidv4} = require("uuid");
+const todos = []
 
-app.use(bodyparser.urlencoded({ extended: true }));
+
 const corsOptions = {
-    origin: 'http://localhost:8081',
+    origin: 'http://localhost:8080',
     credentials: true,            //access-control-allow-credentials:true
     optionSuccessStatus: 200
 }
-app.use(cors(corsOptions));
+app.use(session({
+    secret:uuidv4(),
+    resave:false,
+    saveUninitialized:true
+}))
 
+app.use(bodyparser.json())
+app.use(bodyparser.urlencoded({ extended: true }));
+app.use(cors(corsOptions));
 app.use(express.json())
 app.use(function (req, res, next) {
 
@@ -25,9 +32,10 @@ app.use(function (req, res, next) {
 
     next();
 })
-const todos = []
-
-app.post('/', async (req, res) => {
+app.get('/', (req,res)=>{
+    res.render('base',{title: "Login System"});
+})
+app.post('/todo', async (req, res) => {
     try {
         const name = req.body.task.name;
         const { task } = req.body.task;
@@ -43,7 +51,7 @@ app.post('/', async (req, res) => {
     //todo.push(todo);
 })
 
-app.delete('/:id', async (req, res) => {
+app.delete('/todo/:id', async (req, res) => {
     console.log("here");
     try {
         const deleteTodo = await pool.query("DELETE FROM todo WHERE todo_id=$1",
@@ -58,7 +66,7 @@ app.delete('/:id', async (req, res) => {
 
 
 
-app.get('/', async (req, res) => {
+app.get('/todo', async (req, res) => {
     try {
         const allTodos = await pool.query("SELECT * FROM todo ORDER BY todo_id DESC")
         res.json(allTodos.rows)
@@ -69,7 +77,7 @@ app.get('/', async (req, res) => {
 
 })
 
-app.patch("/:id", async (req, res) => {
+app.patch("/todo/:id", async (req, res) => {
     try {
         const task = req.body.task.task;
         const updateTodo = await pool.query("UPDATE todo SET task = $1 WHERE todo_id=$2 ", [task, req.params.id])

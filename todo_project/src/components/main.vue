@@ -1,29 +1,36 @@
 
 <template>
-  <div id="todos">
-    <app-edit v-bind:editId="editId" v-if="editId" v-on:editTask="editTask($event)"></app-edit>
+  <div>
+    <app-header></app-header>
+    <button class="btn btn-dark" v-on:click="isFormVisible = !isFormVisible">Add Task</button>
+    <app-form v-if="isFormVisible" v-on:addTask="updateTask($event)"></app-form>
 
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Task</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="todo in list" :key="todo.id">
-          <td>{{ todo.todo_id }}</td>
-          <td>{{ todo.name }}</td>
-          <td>{{ todo.task }}</td>
-          <td> <button class="btn btn-danger" v-on:click="del(todo.todo_id)">Delete</button>
-            <button class="btn btn-primary" v-on:click="editId = todo.todo_id">Edit</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
 
+    <div id="todos">
+      <app-edit v-bind:editId="editId" v-if="editId" v-on:editTask="editTask($event)"></app-edit>
+
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Task</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="todo in todos" :key="todo.id">
+            <td>{{ todo.todo_id }}</td>
+            <td>{{ todo.name }}</td>
+            <td>{{ todo.task }}</td>
+            <td> <button class="btn btn-danger" v-on:click="del(todo.todo_id)">Delete</button>
+              <button class="btn btn-primary" v-on:click="editId = todo.todo_id">Edit</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
   </div>
 
 
@@ -31,33 +38,43 @@
 
 <script>
 import editTaskForm from "./editTask.vue";
+import header from './Header.vue';
+import ToDoForm from "./newTaskForm.vue";
 
-import { displayTask, deleteTask, updateTodo } from "../../services";
+
+
+import { displayTask, deleteTask, updateTodo, addTask} from "../../services";
 export default {
   components: {
 
     'app-edit': editTaskForm,
+    'app-header': header,
+    'app-form': ToDoForm,
 
-  },
-  props: {
-    todos: {
-      type: Array,
-    }
   },
 
 
   data() {
     return {
       editId: '',
-      list: [],
+      todos: [],
+      isFormVisible: false,
+
     }
 
   },
   methods: {
+    updateTask(data) {
+      console.log('data::', data);
+      addTask(data).then(() => {
+        this.todos.push(data);
+
+      })
+    },
 
     del(id) {
       deleteTask(id).then(() => {
-        this.$emit('del', id)
+        this.todos = this.todos.filter(item => item.todo_id !== id)
 
       })
       displayTask().then((response) => {
@@ -73,8 +90,6 @@ export default {
 
       console.log('data::', data);
       updateTodo(data).then(() => {
-        //this.todos.push(data);
-
       })
     },
   },
