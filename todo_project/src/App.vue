@@ -15,6 +15,9 @@ export default {
   components: {
     'app-main': main,
     'app-base': base
+  },
+  data(){
+    
   }
 
 }

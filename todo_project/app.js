@@ -3,9 +3,12 @@ var app = express();
 const cors = require('cors');
 const pool = require("./db")
 const bodyparser = require("body-parser");
-const session= require("express-session");
-const {v4: uuidv4} = require("uuid");
+const session = require("express-session");
+const { v4: uuidv4 } = require("uuid");
+const { response } = require("express");
 const todos = []
+var router = express.Router();
+
 
 
 const corsOptions = {
@@ -14,9 +17,9 @@ const corsOptions = {
     optionSuccessStatus: 200
 }
 app.use(session({
-    secret:uuidv4(),
-    resave:false,
-    saveUninitialized:true
+    secret: uuidv4(),
+    resave: false,
+    saveUninitialized: true
 }))
 
 app.use(bodyparser.json())
@@ -32,9 +35,29 @@ app.use(function (req, res, next) {
 
     next();
 })
-app.get('/', (req,res)=>{
-    res.render('base',{title: "Login System"});
+app.set('view engine', '');
+
+app.get('/', (req, res) => {
+    res.render('base', { title: "Login System" });
 })
+const credential = {
+    username: "admin",
+    password: "admin"
+}
+app.post('/', (req, res) => {
+    if (req.body.username == credential.username && req.body.password == credential.password) {
+        console.log(req.body.username);
+        req.session.user = req.body.username;
+        console.log(req.session);
+        res.redirect('/todo')
+        res.end("Login Successful")
+    } else {
+        res.end("Invalid Login details.")
+    }
+});
+
+
+
 app.post('/todo', async (req, res) => {
     try {
         const name = req.body.task.name;
@@ -47,8 +70,7 @@ app.post('/todo', async (req, res) => {
     }
     res.json("task added")
 
-    //const todo = req.body.todo;
-    //todo.push(todo);
+
 })
 
 app.delete('/todo/:id', async (req, res) => {

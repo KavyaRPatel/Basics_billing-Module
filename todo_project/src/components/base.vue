@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import login_header from './login_header.vue';
+import login_header from './login.vue';
 
 export default {
     components: {

@@ -16,7 +16,7 @@
                 <div v-show="submitted && !password" class="invalid-feedback">Password is required</div>
             </div>
             <div class="form-group">
-                <button class="btn btn-primary">Login</button>
+                <button class="btn btn-primary" type="submit">Login</button>
 
             </div>
             <label v-if="error" class="alert alert-danger">Incorrect Username or Password</label>
@@ -27,29 +27,32 @@
 
 
 <script>
+import axios from 'axios'
+
 export default {
+
     data() {
         return {
             username: '',
             password: '',
             submitted: false,
-            error: ''
+            error: '',
+            user: {}
         }
     },
-    methods:{
-        checkUser(){
-            this.submitted=true;
-            const username=this.username;
-            const password=this.password;
-
-            
-            if (!(username && password)) {
-                return;
-            }
+    methods: {
+        checkUser() {
+            this.submitted = true;
+            const response = axios.post('http://localhost:4000/', {
+                username: this.username,
+                password: this.password
+            })
+            return response.data;
 
         }
 
     }
+
 
 }
 </script>

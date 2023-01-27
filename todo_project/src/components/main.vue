@@ -1,6 +1,9 @@
 
 <template>
+
   <div>
+    <router-view></router-view>
+
     <app-header></app-header>
     <button class="btn btn-dark" v-on:click="isFormVisible = !isFormVisible">Add Task</button>
     <app-form v-if="isFormVisible" v-on:addTask="updateTask($event)"></app-form>
@@ -43,7 +46,7 @@ import ToDoForm from "./newTaskForm.vue";
 
 
 
-import { displayTask, deleteTask, updateTodo, addTask} from "../../services";
+import { displayTask, deleteTask, updateTodo, addTask } from "../../services";
 export default {
   components: {
 
@@ -97,7 +100,7 @@ export default {
   created() {
     displayTask().then((response) => {
 
-      this.list = response;
+      this.todos = response;
 
     })
   }
